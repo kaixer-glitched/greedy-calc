@@ -9,18 +9,8 @@ public class CalcService {
     public CalcService(CalcRepository calcRepository) {
         this.calcRepository = calcRepository;
     }
-
-    private CalcResponseDTO toDTO(Calculation calculation) {
-        CalcResponseDTO dto = new CalcResponseDTO();
-        dto.setCalcId(calculation.getCalcId());
-
-    }
-
-    public void saveCalculations(Calculation calculation) {
-        calcRepository.save(calculation);
-    }
-
-    public Calculation getCalculation(int id) {
-        return calcRepository.findById(id).get();
-    }
+    // TODO: add save calculation to database.
+    // TODO: add the main logic for calculation.
+    // TODO: configure the application.properties for database.
+    // TODO: create a way to send a proper DTO for the client.
 }
