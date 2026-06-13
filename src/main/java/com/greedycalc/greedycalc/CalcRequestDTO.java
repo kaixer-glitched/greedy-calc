@@ -19,5 +19,4 @@ public class CalcRequestDTO {
     private double value1;
     private double value2;
 
-    private double result;
 }
