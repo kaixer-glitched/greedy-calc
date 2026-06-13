@@ -2,6 +2,8 @@ package com.greedycalc.greedycalc;
 
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class CalcService {
     private final CalcRepository calcRepository;
@@ -9,10 +11,6 @@ public class CalcService {
     public CalcService(CalcRepository calcRepository) {
         this.calcRepository = calcRepository;
     }
-    // TODO: add save calculation to database.
-    // TODO: add the main logic for calculation.
-    // TODO: configure the application.properties for database.
-    // TODO: create a way to send a proper DTO for the client.
 
     public CalcResponseDTO toResponseDTO(Calculation calculation) {
         CalcResponseDTO calcResponseDTO = new CalcResponseDTO();
@@ -46,5 +44,13 @@ public class CalcService {
         calculation.setResult(result);
         Calculation saved = calcRepository.save(calculation);
         return toResponseDTO(saved);
+    }
+
+    public CalcResponseDTO deleteCalculation(Calculation calculation) {
+        Calculation existingBeforeDelete = calcRepository
+                .findById(calculation.getCalcId())
+                .orElseThrow(() -> new RuntimeException("Calculation not found"));
+        calcRepository.delete(existingBeforeDelete);
+        return toResponseDTO(existingBeforeDelete);
     }
 }
