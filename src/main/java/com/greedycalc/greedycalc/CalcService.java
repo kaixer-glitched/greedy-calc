@@ -2,6 +2,7 @@ package com.greedycalc.greedycalc;
 
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -52,5 +53,12 @@ public class CalcService {
                 .orElseThrow(() -> new RuntimeException("Calculation not found"));
         calcRepository.delete(existingBeforeDelete);
         return toResponseDTO(existingBeforeDelete);
+    }
+    // what does this do??
+    public List<CalcResponseDTO> findAllCalculations() {
+        return calcRepository.findAll()
+                .stream()
+                .map(this::toResponseDTO)
+                .toList();
     }
 }
