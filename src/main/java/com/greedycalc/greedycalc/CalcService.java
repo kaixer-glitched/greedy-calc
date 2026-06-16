@@ -23,15 +23,20 @@ public class CalcService {
         return calcResponseDTO;
     }
 
-    public CalcResponseDTO saveCalculation(Calculation calculation) {
-        Calculation saved = calcRepository.save(calculation);
-        return toResponseDTO(saved);
+    public Calculation toEntity(CalcRequestDTO calcRequestDTO) {
+        Calculation calculation = new Calculation();
+        calculation.setOperation(calcRequestDTO.getOperation());
+        calculation.setValue1(calcRequestDTO.getValue1());
+        calculation.setValue2(calcRequestDTO.getValue2());
+        return calculation;
     }
 
-    public CalcResponseDTO calculate(Calculation calculation) {
-        double val1 = calculation.getValue1();
-        double val2 = calculation.getValue2();
-        double result = switch (calculation.getOperation()) {
+    public CalcResponseDTO calculate(CalcRequestDTO calcRequestDTO) {
+        Calculation calculation = toEntity(calcRequestDTO);
+
+        double val1 = calcRequestDTO.getValue1();
+        double val2 = calcRequestDTO.getValue2();
+        double result = switch (calcRequestDTO.getOperation()) {
             case ADD -> val1 + val2;
             case SUBTRACT ->  val1 - val2;
             case MULTIPLY -> val1 * val2 ;
