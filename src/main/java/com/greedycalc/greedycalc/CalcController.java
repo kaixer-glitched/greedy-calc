@@ -27,5 +27,11 @@ public class CalcController {
         return ResponseEntity.status(HttpStatus.CREATED).body(calcResponseDTO);
     }
 
-
+    // orElse is fine for now since we don't have global exception handler yet
+    @GetMapping("/{id}")
+    public ResponseEntity<CalcResponseDTO> getCalculationById(@PathVariable Long id) {
+        return calcService.getCalculationById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
 }
