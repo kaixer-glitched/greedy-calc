@@ -59,11 +59,17 @@ public class CalcService {
         calcRepository.delete(existingBeforeDelete);
         return toResponseDTO(existingBeforeDelete);
     }
+    // TODO: Search what even is this for and how does it work?
     // what does this do??
     public List<CalcResponseDTO> findAllCalculations() {
         return calcRepository.findAll()
                 .stream()
                 .map(this::toResponseDTO)
                 .toList();
+    }
+
+    public Optional<CalcResponseDTO> getCalculationById(Long id) {
+        return calcRepository.findById(id)
+                .map(this::toResponseDTO);
     }
 }

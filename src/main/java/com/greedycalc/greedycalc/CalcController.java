@@ -26,4 +26,6 @@ public class CalcController {
         CalcResponseDTO calcResponseDTO = calcService.calculate(calcRequestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(calcResponseDTO);
     }
+
+
 }
