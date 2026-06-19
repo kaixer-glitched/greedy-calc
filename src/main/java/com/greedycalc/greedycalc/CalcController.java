@@ -29,9 +29,18 @@ public class CalcController {
 
     // orElse is fine for now since we don't have global exception handler yet
     @GetMapping("/{id}")
-    public ResponseEntity<CalcResponseDTO> getCalculationById(@PathVariable Long id) {
+    public ResponseEntity<CalcResponseDTO> getCalculationById(@Valid @PathVariable Long id) {
         return calcService.getCalculationById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    // removed the optional here since we only need to confirm whether the actual thing exists
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteCalculationById(@PathVariable Long id) {
+        boolean deleted = calcService.deleteCalculationById(id);
+        return deleted ?
+                ResponseEntity.ok().build() :
+                ResponseEntity.notFound().build();
     }
 }

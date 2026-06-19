@@ -52,13 +52,14 @@ public class CalcService {
         return toResponseDTO(saved);
     }
 
-    public CalcResponseDTO deleteCalculation(Calculation calculation) {
-        Calculation existingBeforeDelete = calcRepository
-                .findById(calculation.getCalcId())
-                .orElseThrow(() -> new RuntimeException("Calculation not found"));
-        calcRepository.delete(existingBeforeDelete);
-        return toResponseDTO(existingBeforeDelete);
+    public boolean deleteCalculationById(Long id) {
+        if (!calcRepository.existsById(id)) {
+            return false;
+        }
+        calcRepository.deleteById(id);
+        return true;
     }
+
     // TODO: Search what even is this for and how does it work?
     // what does this do??
     public List<CalcResponseDTO> findAllCalculations() {
